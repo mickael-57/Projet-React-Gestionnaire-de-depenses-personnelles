@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
 
-const ModaleAjouterDepense = ({show, dispatch}) => {
+const ModaleAjouterDepense = ({show, fermerModale, dispatch}) => {
     const [showModale, setShowModale] = useState(show);
     const [intitule, setIntitule] = useState('');
     const [categorie, setCategorie] = useState('');
     const [montant, setMontant] = useState('');
-
-    const ouvrirModale = () => {
-        setShowModale(true);
-    };
-
-    const fermerModale = () => {
-        setShowModale(false);
-    };
 
     const soumettreFormulaire = () => {
         dispatch({
@@ -29,13 +21,7 @@ const ModaleAjouterDepense = ({show, dispatch}) => {
 
     return (
         <div>
-            {/* Bouton pour ouvrir la modale */}
-            <button type="button" className="btn btn-primary" onClick={ouvrirModale}>
-                Ouvrir la modale
-            </button>
-
-            {/* Modale Bootstrap */}
-            {showModale && (
+            {show && (
                 <div className="modal fade show" style={{ display: 'block' }} id="modalAjouterPaiement">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -44,7 +30,6 @@ const ModaleAjouterDepense = ({show, dispatch}) => {
                                 <button type="button" className="btn-close" onClick={fermerModale}></button>
                             </div>
                             <div className="modal-body">
-                                {/* <?= $this->Form->hidden('id', ['id' => 'modalAjouterPaiement_id']) ?> */}
                                 <form>
                                     <div className="form-row">
                                         {/* Intitulé */}

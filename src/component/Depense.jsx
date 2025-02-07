@@ -1,4 +1,11 @@
-const Depense = ({depense, index, handleClick}) => {
+const Depense = ({depense, index, handleClick, dispatch}) => {
+    const deleteDepense = (id) => {
+        dispatch({
+            type: 'delete_depense',
+            payload: {id: id}
+        });
+    };
+
     return (
         <>
             <td>{index}</td>
@@ -11,7 +18,7 @@ const Depense = ({depense, index, handleClick}) => {
                     <button type="button" className="btn btn-sm btn-secondary" onClick="open_modalAjouterPaiement(<?= $paiement->id ?>)">Modifier</button>
 
                     {/* Bouton Supprimer Paiement */}
-                    <button type="button" className="btn btn-sm btn-danger">Supprimer</button>
+                    <button type="button" className="btn btn-sm btn-danger" onClick={() => deleteDepense(depense.id)}>Supprimer</button>
                 </div>
             </td>
         </>

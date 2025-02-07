@@ -14,40 +14,44 @@ const Depenses = () => {
     });
   };
 
+  const fermerModale = () => {
+    setShowModale(false)
+  };
+
   return (
     <div className="container mt-4">
         <h2 className="mb-3">Liste des Dépenses</h2>
-        <button type="button" className="btn btn-primary mb-3" onClick={() => setModaleOuverte(true)}>
+        <button type="button" className="btn btn-primary mb-3" onClick={() => setShowModale(true)}>
             Ajouter une dépense
         </button>
 
         <table className="table table-striped table-bordered">
-        <thead className="table-dark">
-            <tr>
-            <th>#</th>
-            <th>Nom</th>
-            <th>Montant (€)</th>
-            <th>Catégorie</th>
-            <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            {depenses.length > 0 ? (
-            depenses.map((depense, index) => (
+            <thead className="table-dark">
                 <tr>
-                    <Depense key={depense.id} index={index} depense={depense} handleClick={ajouterDepense} />
+                <th>#</th>
+                <th>Nom</th>
+                <th>Montant (€)</th>
+                <th>Catégorie</th>
+                <th>Action</th>
                 </tr>
-            ))
-            ) : (
-            <tr>
-                <td colSpan="6" className="text-center">Aucune dépense ajoutée</td>
-            </tr>
-            )}
-        </tbody>
+            </thead>
+            <tbody>
+                
+                {depenses.length > 0 ? (
+                depenses.map((depense, index) => (
+                    <tr>
+                        <Depense key={depense.id} index={index} depense={depense} handleClick={ajouterDepense} />
+                    </tr>
+                ))
+                ) : (
+                <tr>
+                    <td colSpan="6" className="text-center">Aucune dépense ajoutée</td>
+                </tr>
+                )}
+            </tbody>
         </table>
 
-        <ModaleAjouterDepense show={showModale} dispatch={dispatch} />
+        {showModale && (<ModaleAjouterDepense show={showModale} fermerModale={fermerModale} dispatch={dispatch} />)}
     </div>
   );
 };
