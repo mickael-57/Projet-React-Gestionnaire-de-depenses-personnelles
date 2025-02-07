@@ -17,7 +17,8 @@ const Depenses = () => {
   }, {});
   const categories = Object.keys(depensesParCategorie);
 
-  const ouvrirModale = () => {
+  const ouvrirModale = (depense) => {
+    setDepenseEnCours(depense);
     setShowModale(true)
   };
 
@@ -46,7 +47,7 @@ const Depenses = () => {
                 
                 {depenses.length > 0 ? (
                 depenses.map((depense, index) => (
-                    <Depense key={depense.id} index={index} ouvrirModale={() => setDepenseEnCours(depense)} depense={depense} dispatch={dispatch} />
+                    <Depense key={depense.id} index={index} ouvrirModale={() => ouvrirModale(depense)} depense={depense} dispatch={dispatch} />
                 ))
                 ) : (
                 <tr>
@@ -63,6 +64,7 @@ const Depenses = () => {
             </tfoot>
         </table>
 
+        {/* Tableau des catégories */}
         <table className="table table-striped table-bordered">
             <thead className="table-dark">
                 <tr>
@@ -72,7 +74,7 @@ const Depenses = () => {
             </thead>
             <tbody>
                 {categories.map((categorie, index) => (
-                    <tr>
+                    <tr key={index}>
                         <td className="text-center">{categorie}</td>
                         <td className="text-center">{depensesParCategorie[categorie]}</td>
                     </tr>
@@ -80,7 +82,7 @@ const Depenses = () => {
             </tbody>
         </table>
 
-        {showModale && (<ModaleAjouterDepense show={showModale} fermerModale={fermerModale} dispatch={dispatch} />)}
+        {showModale && (<ModaleAjouterDepense show={showModale} fermerModale={fermerModale} depense={depenseEnCours} dispatch={dispatch} />)}
     </div>
   );
 };

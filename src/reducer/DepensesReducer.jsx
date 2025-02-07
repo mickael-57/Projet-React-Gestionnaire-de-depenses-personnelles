@@ -17,9 +17,6 @@ const reducer = (state, action) => {
           : depense
       );
 
-    case "reset":
-      return initialState;
-
     default:
       return state;
   }

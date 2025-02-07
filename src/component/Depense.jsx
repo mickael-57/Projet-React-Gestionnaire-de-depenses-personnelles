@@ -1,5 +1,4 @@
 const Depense = ({depense, index, dispatch, ouvrirModale}) => {
-
     const deleteDepense = (id) => {
         dispatch({
             type: 'delete_depense',
@@ -18,7 +17,7 @@ const Depense = ({depense, index, dispatch, ouvrirModale}) => {
             <td>
                 <div className="btn-group">
                     {/* Bouton Modifier Paiement */}
-                    <button type="button" className="btn btn-sm btn-secondary" onClick={() => ouvrirModale(depense.id)}>Modifier</button>
+                    <button type="button" className="btn btn-sm btn-secondary" onClick={ouvrirModale}>Modifier</button>
 
                     {/* Bouton Supprimer Paiement */}
                     <button type="button" className="btn btn-sm btn-danger" onClick={() => deleteDepense(depense.id)}>Supprimer</button>
