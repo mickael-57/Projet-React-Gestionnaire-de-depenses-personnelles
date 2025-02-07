@@ -8,10 +8,10 @@ const Depense = ({depense, index, handleClick}) => {
             <td>
                 <div class="btn-group">
                     {/* Bouton Modifier Paiement */}
-                    <button className="btn btn-sm btn-secondary" onClick="open_modalAjouterPaiement(<?= $paiement->id ?>)">Modifier</button>
+                    <button type="button" className="btn btn-sm btn-secondary" onClick="open_modalAjouterPaiement(<?= $paiement->id ?>)">Modifier</button>
 
                     {/* Bouton Supprimer Paiement */}
-                    <button className="btn btn-sm btn-danger">Supprimer</button>
+                    <button type="button" className="btn btn-sm btn-danger">Supprimer</button>
                 </div>
             </td>
         </>
