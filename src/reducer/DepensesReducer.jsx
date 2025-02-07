@@ -8,12 +8,12 @@ const reducer = (state, action) => {
       return [...state, action.payload]; 
 
     case "delete_depense":
-      return state.filter(depense => depense.id !== action.payload);
+      return state.filter(depense => depense.id !== action.payload.id);
 
     case "update_depense":
       return state.map(depense =>
         depense.id === action.payload.id
-          ? { ...depense, ...action.payload.data }
+          ? { ...depense, ...action.payload }
           : depense
       );
 

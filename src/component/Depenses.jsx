@@ -6,12 +6,19 @@ import ModaleAjouterDepense from "./ModalAjouterDepense.jsx";
 const Depenses = () => {
   const [depenses, dispatch] = useDepensesReducer();
   const [showModale, setShowModale] = useState(false);
+  const [depenseEnCours, setDepenseEnCours] = useState(null);
 
-  const ajouterDepense = () => {
-    dispatch({
-      type: "add_depense",
-      payload: { id: Date.now(), intitule: "Café", categorie: "Alimentation", montant: 5 }
-    });
+  const totalDepenses = depenses.reduce((total, depense) => total + parseFloat(depense.montant), 0);
+  const depensesParCategorie = depenses.reduce((acc, depense) => {
+    if (acc[depense.categorie]) acc[depense.categorie] += parseFloat(depense.montant);
+    else acc[depense.categorie] = parseFloat(depense.montant);
+
+    return acc;
+  }, {});
+  const categories = Object.keys(depensesParCategorie);
+
+  const ouvrirModale = () => {
+    setShowModale(true)
   };
 
   const fermerModale = () => {
@@ -28,26 +35,48 @@ const Depenses = () => {
         <table className="table table-striped table-bordered">
             <thead className="table-dark">
                 <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Montant (€)</th>
-                <th>Catégorie</th>
-                <th>Action</th>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Montant (€)</th>
+                    <th>Catégorie</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 
                 {depenses.length > 0 ? (
                 depenses.map((depense, index) => (
-                    <tr>
-                        <Depense key={depense.id} index={index} depense={depense} handleClick={ajouterDepense} />
-                    </tr>
+                    <Depense key={depense.id} index={index} ouvrirModale={() => setDepenseEnCours(depense)} depense={depense} dispatch={dispatch} />
                 ))
                 ) : (
                 <tr>
                     <td colSpan="6" className="text-center">Aucune dépense ajoutée</td>
                 </tr>
                 )}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan="2">Total</td>
+                    <td>{totalDepenses}</td>
+                    <td colSpan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <table className="table table-striped table-bordered">
+            <thead className="table-dark">
+                <tr>
+                    <th>Catégorie</th>
+                    <th>Montant (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {categories.map((categorie, index) => (
+                    <tr>
+                        <td className="text-center">{categorie}</td>
+                        <td className="text-center">{depensesParCategorie[categorie]}</td>
+                    </tr>
+                ))}
             </tbody>
         </table>
 
